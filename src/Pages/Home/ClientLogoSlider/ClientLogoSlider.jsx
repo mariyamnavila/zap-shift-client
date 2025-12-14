@@ -67,7 +67,6 @@ const ClientLogoSlider = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-
       </div>
     </section>
   );
