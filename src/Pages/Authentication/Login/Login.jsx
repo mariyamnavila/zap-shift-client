@@ -11,6 +11,7 @@ const Login = () => {
 
     return (
         <div>
+            <h1 className="text-5xl font-bold my-3">Login Now!</h1>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <fieldset className="fieldset">
                     <label className="label">Email</label>
@@ -22,6 +23,9 @@ const Login = () => {
                             required: true
                         })}
                     />
+                    {
+                        errors.email?.type === 'required' && <p className="text-red-500">Email is required</p>
+                    }
 
                     <label className="label">Password</label>
                     <input
@@ -33,8 +37,9 @@ const Login = () => {
                             minLength: 6,
                         })}
                     />
+                    
                     {
-                        errors.password.type === 'required' && <p className="text-red-500">Password is required</p>
+                        errors.password?.type === 'required' && <p className="text-red-500">Password is required</p>
                     }
                     {
                         errors.password?.type === 'minLength' && <p className="text-red-500">Password must be 6 characters or longer</p>
@@ -42,7 +47,7 @@ const Login = () => {
                     <div><a className="link link-hover">Forgot password?</a></div>
 
                 </fieldset>
-                    <button className="btn btn-neutral mt-4">Login</button>
+                <button className="btn btn-neutral mt-4">Login</button>
             </form>
         </div>
     );
