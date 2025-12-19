@@ -6,7 +6,7 @@ const Footer = () => {
         <footer className="footer footer-horizontal footer-center bg-neutral text-neutral-content p-10">
             <div className="mx-auto max-w-7xl">
                 <aside>
-                    <ZapShiftLogo></ZapShiftLogo>
+                    <ZapShiftLogo className="justify-center"></ZapShiftLogo>
                     <p className="font-bold">
                         ACME Industries Ltd.
                         <br />
