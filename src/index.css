@@ -11,9 +11,20 @@
   default: true;
   --color-primary: #caeb66;
   --color-secondary: teal;
+  --color-primary-content: #000000
 }
 
 body {
     font-family: "Urbanist", sans-serif;
     font-optical-sizing: auto;
+}
+
+.active{
+  background-color: #caeb66;
+  border-radius: 20px;
+  color: #000000;
+}
+
+.links li a{
+  border-radius: 20px;
 }
