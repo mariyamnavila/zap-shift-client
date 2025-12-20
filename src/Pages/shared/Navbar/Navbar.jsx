@@ -1,12 +1,54 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import ZapShiftLogo from "../ZapShiftLogo/ZapShiftLogo";
+import useAuth from "../../../hooks/useAuth";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
+    const { user, logOut } = useAuth()
 
     const navItems = <>
         <li><NavLink to={'/'}>Home</NavLink></li>
         <li><NavLink to={'/about'}>About</NavLink></li>
+        {/* {
+            user ?
+                <li className="text-base-300"><NavLink to={'/appliedJobs'}>Applied Jobs</NavLink></li>
+                :
+                <></>
+        } */}
     </>
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => {
+                toast.error('you logged Out ', {
+                    zIndex: 9999,
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    // transition: Bounce,
+                })
+            })
+            .catch((error) => {
+                toast.error(error, {
+                    zIndex: 9999,
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    // transition: Bounce,
+                });
+            })
+    }
+
 
     return (
         <div className="navbar bg-base-100 mt-5 rounded-xl mx-auto max-w-7xl shadow-sm">
@@ -35,7 +77,11 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Button</a>
+                {
+                    user
+                        ? <button onClick={handleLogOut} className="btn btn-primary hover:bg-[#1d553c] hover:border-[#1d553c] hover:text-white border text-black rounded-xl">Log Out</button>
+                        : <Link to={'/login'} className="btn btn-primary hover:bg-[#1d553c] hover:border-[#1d553c] hover:text-white border text-black rounded-xl">Login</Link>
+                }
             </div>
         </div>
     );
