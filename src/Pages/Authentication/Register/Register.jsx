@@ -1,18 +1,29 @@
 import { useForm } from "react-hook-form";
+import useAuth from "../../../hooks/useAuth";
+import SocialLogin from "../SocialLogin/SocialLogin";
 
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
+    const { createUser } = useAuth()
 
     const onSubmit = (data) => {
         console.log(data);
+        const { email, password } = data
+        createUser(email, password)
+            .then((result) => {
+                console.log(result.user);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     }
 
     return (
         <div>
             <div className="card w-full max-w-sm shrink-0">
                 <div className="card-body">
-                    <h1 className="text-5xl font-bold">Create an Account!</h1>
+                    <h1 className="text-5xl font-bold">Create Account!</h1>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <fieldset className="fieldset">
                             <label className="label">Email</label>
@@ -43,10 +54,12 @@ const Register = () => {
                             {
                                 errors.password?.type === 'minLength' && <p className="text-red-500">Password must be 6 characters or longer</p>
                             }
-                            <div>Already Have An Account? <a href="/login" className="link link-hover text-[#CAEB66] font-bold">Login</a></div>
-                            <button className="btn btn-neutral mt-4">Register</button>
+                            <div><a className="link link-hover">Forgot password?</a></div>
+                            <button className="btn btn-primary text-black mt-2">Register</button>
+                            <div>Already Have An Account? <a href="/login" className="link link-hover text-primary font-bold">Login</a></div>
                         </fieldset>
                     </form>
+                    <SocialLogin></SocialLogin>
                 </div>
             </div>
         </div>
