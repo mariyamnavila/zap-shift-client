@@ -10,12 +10,12 @@ const Navbar = () => {
         <li><NavLink to={'/'}>Home</NavLink></li>
         <li><NavLink to={'/about'}>About</NavLink></li>
         <li><NavLink to={'/coverage'}>Coverage</NavLink></li>
-        {/* {
+        {
             user ?
-                <li className="text-base-300"><NavLink to={'/appliedJobs'}>Applied Jobs</NavLink></li>
+                <li><NavLink to={'/sendParcel'}>Send A Parcel</NavLink></li>
                 :
                 <></>
-        } */}
+        }
     </>
 
     const handleLogOut = () => {
@@ -66,9 +66,9 @@ const Navbar = () => {
                         }
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">
+                <div className="btn btn-ghost text-xl">
                     <ZapShiftLogo></ZapShiftLogo>
-                </a>
+                </div>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1 links">

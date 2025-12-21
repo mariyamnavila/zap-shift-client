@@ -9,13 +9,16 @@ import 'aos/dist/aos.css';
 import Aos from 'aos';
 import AuthProvider from './contexts/AuthContext/AuthProvider.jsx';
 import { ToastContainer } from 'react-toastify';
+import PrivateRoute from './routes/PrivateRoute.jsx';
 
 Aos.init();
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthProvider>
-      <RouterProvider router={router} />
-      <ToastContainer/>
+      <PrivateRoute>
+        <RouterProvider router={router} />
+        <ToastContainer />
+      </PrivateRoute>
     </AuthProvider>
   </StrictMode>,
 )
