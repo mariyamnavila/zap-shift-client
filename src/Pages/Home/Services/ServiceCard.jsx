@@ -31,7 +31,7 @@ const ServiceCard = ({ service }) => {
 
                 {/* Description */}
                 <p className="
-          text-sm text-neutral-content/80 transition-colors duration-300
+          text-sm text-secondary transition-colors duration-300
           group-hover:text-black
         ">
                     {description}

@@ -31,7 +31,7 @@ const ClientLogoSlider = () => {
         {/* Section Heading */}
         <div className="text-center mb-10 space-y-2">
           <h2 className="text-3xl font-bold">Trusted by Our Clients</h2>
-          <p className="text-neutral-content/80">
+          <p className="text-secondary">
             Leading brands trust us for fast and reliable delivery
           </p>
         </div>

@@ -21,7 +21,7 @@ const BenefitCard = ({ image, title, description }) => {
                 <div className="flex-1 flex items-center">
                     <div className="space-y-2 text-center md:text-left">
                         <h3 className="text-xl font-semibold">{title}</h3>
-                        <p className="text-neutral-content/80 leading-relaxed">
+                        <p className="text-secondary leading-relaxed">
                             {description}
                         </p>
                     </div>

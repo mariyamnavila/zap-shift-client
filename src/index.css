@@ -3,29 +3,35 @@
 @import "tailwindcss";
 
 @plugin "daisyui" {
-    themes: light --default, dark ;
+  themes: light --default, dark;
+}
+
+@plugin "daisyui/theme" {
+  name: "light";
+  --color-primary: #caeb66; /* same primary for light */
+  --color-secondary: #364153;
+  --color-primary-content: #000000;
 }
 
 @plugin "daisyui/theme" {
   name: "dark";
-  default: true;
-  --color-primary: #caeb66;
-  --color-secondary: teal;
-  --color-primary-content: #000000
+  --color-primary: #caeb66; /* same primary for dark */
+  --color-secondary: #99a1af;
+  --color-primary-content: #000000;
 }
 
 body {
-    font-family: "Urbanist", sans-serif;
-    font-optical-sizing: auto;
+  font-family: "Urbanist", sans-serif;
+  font-optical-sizing: auto;
 }
 
-.active{
+.active {
   background-color: #caeb66;
   border-radius: 20px;
   color: #000000;
 }
 
-.links li a{
+.links li a {
   border-radius: 20px;
 }
 
@@ -34,6 +40,7 @@ body {
     transform: scale(0.95);
     opacity: 0;
   }
+
   100% {
     transform: scale(1);
     opacity: 1;

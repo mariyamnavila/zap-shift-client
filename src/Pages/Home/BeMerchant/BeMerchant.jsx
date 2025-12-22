@@ -11,10 +11,10 @@ const BeMerchant = () => {
           />
 
           <div>
-            <h1 className="text-5xl font-bold">
+            <h1 className="text-5xl font-bold text-white">
               Merchant and Customer Satisfaction is Our First Priority
             </h1>
-            <p className="py-6">
+            <p className="py-6 text-white">
               We offer the lowest delivery charge with the highest value along with
               100% safety of your product. Pathao courier delivers your parcels in
               every corner of Bangladesh right on time.

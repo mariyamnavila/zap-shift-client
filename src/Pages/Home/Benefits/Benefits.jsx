@@ -35,7 +35,7 @@ const Benefits = () => {
                 {/* Section Header */}
                 <div className="text-center mb-12 space-y-3">
                     <h2 className="text-4xl font-bold">Why Choose Us</h2>
-                    <p className="text-neutral-content/80">
+                    <p className="text-secondary">
                         Smart logistics solutions designed for speed, safety, and reliability
                     </p>
                 </div>

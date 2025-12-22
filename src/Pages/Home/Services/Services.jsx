@@ -56,7 +56,7 @@ const Services = () => {
                 {/* Heading */}
                 <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
                     <h2 className="text-4xl font-bold">Our Services</h2>
-                    <p className="text-neutral-content/80">
+                    <p className="text-secondary">
                         Enjoy fast, reliable parcel delivery with real-time tracking and zero hassle.
                         From personal packages to business shipments — we deliver on time, every time.
                     </p>

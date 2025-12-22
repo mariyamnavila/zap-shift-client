@@ -1,22 +1,10 @@
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
-import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 
-// Placeholder saveParcel
-// Replace this entire function
-const saveParcel = (parcelData, cost) => {
-    const dataToSave = {
-        ...parcelData,
-        cost,
-        // createdAt: new Date().toISOString(),
-        createdAtTimestamp: Date.now()
-    };
-    console.log("Parcel data saved:", dataToSave);
-    return dataToSave;
-};
 
 const SendParcel = () => {
     const { user } = useAuth();
@@ -33,6 +21,8 @@ const SendParcel = () => {
     });
     const coverageData = useLoaderData();
 
+    const axiosSecure = useAxiosSecure()
+
     // Create region -> districts mapping
     const regionDistrictMap = coverageData.reduce((acc, item) => {
         if (!acc[item.region]) acc[item.region] = [];
@@ -43,7 +33,7 @@ const SendParcel = () => {
     const type = watch("type");
     const senderRegion = watch("senderRegion");
     const receiverRegion = watch("receiverRegion");
-    const [calculatedCost, setCalculatedCost] = useState(null);
+    // const [calculatedCost, setCalculatedCost] = useState(null);
 
     const calculateDeliveryCost = (data) => {
         const { type, weight, senderDistrict, receiverDistrict } = data;
@@ -84,15 +74,22 @@ const SendParcel = () => {
         };
     };
 
-
+    // Placeholder saveParcel
+    const saveParcel = (parcelData) => {
+        axiosSecure.post('/parcels', parcelData)
+            .then((res) => {
+                console.log(res.data);
+                if (res.data.insertedId) {
+                    toast.success("Parcel created successfully!", { duration: 4000 });
+                }
+            })
+    };
     const onSubmit = (data) => {
         const costBreakdown = calculateDeliveryCost(data);
-        setCalculatedCost(costBreakdown.totalCost);
 
-        // Replace this entire section
         const dataWithBreakdown = {
             ...data,
-            // ...costBreakdown,
+            cost: costBreakdown.totalCost,
             deliveryZone: costBreakdown.withinCity ? 'Within City' : 'Outside City/District',
             userEmail: user?.email,
             // userId: user?.uid || user?.id,
@@ -102,8 +99,6 @@ const SendParcel = () => {
             trackingNumber: generateTrackingNumber(),
             creationDate: new Date().toISOString(),
             createdAtTimestamp: Date.now(),
-            // lastUpdated: new Date().toISOString(),
-            // lastUpdatedTimestamp: Date.now()
         };
 
         toast.custom(
@@ -167,10 +162,9 @@ const SendParcel = () => {
                         </button>
                         <button
                             className="btn btn-primary flex-1"
-                            onClick={() => {
+                            onClick={async () => {
                                 toast.dismiss(t.id);
-                                saveParcel(dataWithBreakdown, costBreakdown.totalCost);
-                                toast.success("Parcel is now on process!", { duration: 4000 });
+                                await saveParcel(dataWithBreakdown);
                             }}
                         >
                             Proceed to Payment
@@ -189,7 +183,7 @@ const SendParcel = () => {
         const prefix = 'PKG';
         const timestamp = Date.now().toString().slice(-8);
         const random = Math.random().toString(36).substring(2, 6).toUpperCase();
-        return `${prefix}${timestamp}${random}`;
+        return `${prefix}-${timestamp}-${random}`;
     };
 
     return (
@@ -240,7 +234,7 @@ const SendParcel = () => {
                             <input
                                 type="text"
                                 placeholder="Describe your parcel"
-                                className="input input-bordered w-full"
+                                className="input input-bordered bg-base-200 w-full"
                                 {...register("parcelName", { required: true })}
                             />
                             {errors.parcelName && <span className="text-red-500">Parcel Name is required</span>}
@@ -253,7 +247,7 @@ const SendParcel = () => {
                                     type="number"
                                     step="0.01"
                                     placeholder="Parcel weight"
-                                    className="input input-bordered w-full"
+                                    className="input input-bordered bg-base-200 w-full"
                                     {...register("weight")}
                                 />
                             </div>
@@ -270,28 +264,20 @@ const SendParcel = () => {
                             <input
                                 type="text"
                                 placeholder="Name"
-                                className="input input-bordered w-full"
+                                className="input input-bordered bg-base-200 w-full"
                                 {...register("senderName", { required: true })}
                             />
-                            {/* ADD THIS ENTIRE BLOCK */}
                             <input
                                 type="email"
-                                placeholder="Email"
-                                className="input input-bordered w-full"
-                                {...register("senderEmail", {
-                                    required: "Email is required",
-                                    pattern: {
-                                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                        message: "Invalid email address"
-                                    }
-                                })}
+                                className="input input-bordered bg-base-200 w-full cursor-not-allowed"
+                                readOnly
+                                {...register("senderEmail")}
+                                value={user?.email}
                             />
-                            {errors.senderEmail && <span className="text-red-500 text-sm">{errors.senderEmail.message}</span>}
-                            {/* END OF BLOCK */}
                             <input
                                 type="text"
                                 placeholder="Contact"
-                                className="input input-bordered w-full"
+                                className="input input-bordered bg-base-200 w-full"
                                 {...register("senderContact", { required: true })}
                             />
                             <select
@@ -338,15 +324,15 @@ const SendParcel = () => {
                             <input
                                 type="text"
                                 placeholder="Name"
-                                className="input input-bordered w-full"
+                                className="input input-bordered bg-base-200 w-full"
                                 {...register("receiverName", { required: true })}
                             />
                             {/* ADD THIS ENTIRE BLOCK (OPTIONAL) */}
                             <input
                                 type="email"
                                 placeholder="Email (optional)"
-                                className="input input-bordered w-full"
-                                {...register("receiverEmail", { 
+                                className="input input-bordered bg-base-200 w-full"
+                                {...register("receiverEmail", {
                                     pattern: {
                                         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                                         message: "Invalid email address"
@@ -358,7 +344,7 @@ const SendParcel = () => {
                             <input
                                 type="text"
                                 placeholder="Contact"
-                                className="input input-bordered w-full"
+                                className="input input-bordered bg-base-200 w-full"
                                 {...register("receiverContact", { required: true })}
                             />
                             <select
