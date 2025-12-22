@@ -1,5 +1,6 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
+import ZapShiftLogo from '../Pages/shared/ZapShiftLogo/ZapShiftLogo';
 
 const DashBoardLayout = () => {
     return (
@@ -34,10 +35,11 @@ const DashBoardLayout = () => {
                 </div>
                 <div className="drawer-side">
                     <label htmlFor="my-drawer-3" aria-label="close sidebar" className="drawer-overlay"></label>
-                    <ul className="menu bg-base-200 min-h-full w-80 p-4">
+                    <ul className="menu bg-base-200 min-h-full w-80 dash">
                         {/* Sidebar content here */}
-                        <li><a>Sidebar Item s1</a></li>
-                        <li><a>Sidebar Item s2</a></li>
+                        <li><ZapShiftLogo className={'mb-3.5'}></ZapShiftLogo></li>
+                        <li><NavLink to='/'>Home</NavLink></li>
+                        <li><NavLink to='/dashboard/myParcels'>My Parcels</NavLink></li>
                     </ul>
                 </div>
             </div>

@@ -69,7 +69,7 @@ const Navbar = () => {
                         }
                     </ul>
                 </div>
-                <div className="btn btn-ghost text-xl">
+                <div className="p-1 pl-2 text-xl">
                     <ZapShiftLogo></ZapShiftLogo>
                 </div>
             </div>

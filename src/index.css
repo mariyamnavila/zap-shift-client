@@ -35,6 +35,11 @@ body {
   border-radius: 20px;
 }
 
+.dash .active{
+  background-color: #caeb66;
+  /* border-radius: 0px; */
+}
+
 @keyframes scale-in {
   0% {
     transform: scale(0.95);
