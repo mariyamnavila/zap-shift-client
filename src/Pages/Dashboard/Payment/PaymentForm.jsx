@@ -113,7 +113,7 @@ const PaymentForm = () => {
                         parcelId,
                         senderEmail: parcelInfo.senderEmail,
                         amount,
-                        paymentMethod: result.paymentIntent.payment_method,
+                        paymentMethod: result.paymentIntent.payment_method_types[0],
                         transactionId: result.paymentIntent.id,
                     };
 

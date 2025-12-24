@@ -1,4 +1,7 @@
-import React from 'react';
+import { AiOutlineHome, AiOutlineProfile } from 'react-icons/ai';
+import { BiPackage } from 'react-icons/bi';
+import { RiHistoryLine } from 'react-icons/ri';
+import { MdOutlineTrackChanges } from 'react-icons/md';
 import { NavLink, Outlet } from 'react-router-dom';
 import ZapShiftLogo from '../Pages/shared/ZapShiftLogo/ZapShiftLogo';
 
@@ -8,7 +11,7 @@ const DashBoardLayout = () => {
             <div className="drawer lg:drawer-open">
                 <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content flex flex-col">
-                    
+
                     {/* Navbar */}
                     <div className="navbar bg-base-300 w-full lg:hidden">
                         <div className="flex-none lg:hidden">
@@ -37,9 +40,32 @@ const DashBoardLayout = () => {
                     <label htmlFor="my-drawer-3" aria-label="close sidebar" className="drawer-overlay"></label>
                     <ul className="menu bg-base-200 min-h-full w-80 dash">
                         {/* Sidebar content here */}
-                        <li><ZapShiftLogo className={'mb-3.5'}></ZapShiftLogo></li>
-                        <li><NavLink to='/'>Home</NavLink></li>
-                        <li><NavLink to='/dashboard/myParcels'>My Parcels</NavLink></li>
+                        <li><ZapShiftLogo className={'mb-3.5'} /></li>
+                        <li>
+                            <NavLink to='/'>
+                                <AiOutlineHome className="mr-2 text-xl" /> Home
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to='/dashboard/myParcels'>
+                                <BiPackage className="mr-2 text-xl" /> My Parcels
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to='/dashboard/paymentHistory'>
+                                <RiHistoryLine className="mr-2 text-xl" /> Payment History
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to='/dashboard/track'>
+                                <MdOutlineTrackChanges className="mr-2 text-xl" /> Track a Parcel
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to='/dashboard/profile'>
+                                <AiOutlineProfile className="mr-2 text-xl" /> Update Profile
+                            </NavLink>
+                        </li>
                     </ul>
                 </div>
             </div>
