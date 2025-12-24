@@ -10,7 +10,6 @@ const Navbar = () => {
         <li><NavLink to={'/'}>Home</NavLink></li>
         <li><NavLink to={'/sendParcel'}>Send A Parcel</NavLink></li>
         <li><NavLink to={'/coverage'}>Coverage</NavLink></li>
-        <li><NavLink to={'/about'}>About</NavLink></li>
         {
             user ?
                 <>
@@ -19,6 +18,7 @@ const Navbar = () => {
                 :
                 <></>
         }
+        <li><NavLink to={'/about'}>About Us</NavLink></li>
     </>
 
     const handleLogOut = () => {
