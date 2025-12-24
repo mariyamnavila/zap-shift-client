@@ -31,6 +31,11 @@ const MyParcels = () => {
         // later: redirect to payment gateway
         navigate(`/dashboard/payment/${id}`)
     };
+    const handleTrack = (id) => {
+        console.log("Track for parcel:", id);
+        // later: redirect to payment gateway
+        navigate(`/dashboard/track/${id}`)
+    };
 
     // 👉 Delete parcel
     const handleDelete = (id) => {
@@ -148,6 +153,12 @@ const MyParcels = () => {
                                     </button>
                                 )}
 
+                                <button
+                                    className="btn btn-xs btn-primary"
+                                    onClick={() => handleTrack(parcel._id)}
+                                >
+                                    Track
+                                </button>
                                 <button
                                     className="btn btn-xs btn-error"
                                     onClick={() => handleDelete(parcel._id)}
