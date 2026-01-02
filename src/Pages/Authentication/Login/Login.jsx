@@ -88,7 +88,7 @@ const Login = () => {
                         <div><a className="link link-hover">Forgot password?</a></div>
 
                         <button className="btn btn-primary text-black mt-2">Login</button>
-                        <div>Don't Have Any Account? <a href="/register" className="link link-hover text-primary font-bold">Register</a></div>
+                        <div>Don't Have Any Account? <a href="/register" className="link link-hover text-accent font-bold">Register</a></div>
                     </fieldset>
                 </form>
                 <SocialLogin></SocialLogin>

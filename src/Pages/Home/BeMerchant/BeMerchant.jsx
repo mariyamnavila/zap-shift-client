@@ -20,7 +20,7 @@ const BeMerchant = () => {
               every corner of Bangladesh right on time.
             </p>
             <button className="btn btn-primary text-black rounded-full">Become a Merchant</button>
-            <button className="btn btn-primary btn-outline text-primary hover:text-black ms-4 rounded-full">Earn with ZapShift Courier</button>
+            <button className="btn btn-primary btn-outline text-accent hover:text-black ms-4 rounded-full">Earn with ZapShift Courier</button>
           </div>
 
         </div>

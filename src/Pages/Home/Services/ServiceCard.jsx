@@ -15,7 +15,7 @@ const ServiceCard = ({ service }) => {
 
                 {/* Icon */}
                 <div className="
-          text-primary text-4xl transition-colors duration-300
+          text-accent text-4xl transition-colors duration-300
           group-hover:text-black
         ">
                     <Icon />

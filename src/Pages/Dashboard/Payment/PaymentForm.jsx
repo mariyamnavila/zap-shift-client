@@ -121,7 +121,7 @@ const PaymentForm = () => {
                     console.log(paymentRes.data);
                     if (paymentRes.data.insertedId) {
                         console.log('payment info saved to db');
-                        
+
                         Swal.fire({
                             icon: "success",
                             title: "Payment Successful 🎉",

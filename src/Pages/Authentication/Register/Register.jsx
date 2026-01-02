@@ -123,7 +123,7 @@ const Register = () => {
                             }
                             <div><a className="link link-hover">Forgot password?</a></div>
                             <button className="btn btn-primary text-black mt-2">Register</button>
-                            <div>Already Have An Account? <a href="/login" className="link link-hover text-primary font-bold">Login</a></div>
+                            <div>Already Have An Account? <a href="/login" className="link link-hover text-accent font-bold">Login</a></div>
                         </fieldset>
                     </form>
                     <SocialLogin></SocialLogin>
