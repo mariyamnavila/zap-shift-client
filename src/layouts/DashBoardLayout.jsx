@@ -1,10 +1,10 @@
 import { AiOutlineHome, AiOutlineProfile } from 'react-icons/ai';
 import { BiPackage } from 'react-icons/bi';
 import { RiHistoryLine } from 'react-icons/ri';
-import { MdOutlineTrackChanges } from 'react-icons/md';
+import { MdOutlineTrackChanges, MdPendingActions } from 'react-icons/md';
 import { NavLink, Outlet } from 'react-router-dom';
 import ZapShiftLogo from '../Pages/shared/ZapShiftLogo/ZapShiftLogo';
-
+import { FaMotorcycle } from "react-icons/fa";
 const DashBoardLayout = () => {
     return (
         <div>
@@ -39,30 +39,42 @@ const DashBoardLayout = () => {
                 <div className="drawer-side">
                     <label htmlFor="my-drawer-3" aria-label="close sidebar" className="drawer-overlay"></label>
                     <ul className="menu bg-base-200 min-h-full w-80 dash">
-                        {/* Sidebar content here */}
-                        <li><ZapShiftLogo className={'mb-3.5'} /></li>
+                        <li><ZapShiftLogo className="mb-3.5" /></li>
                         <li>
-                            <NavLink to='/'>
+                            <NavLink to="/">
                                 <AiOutlineHome className="mr-2 text-xl" /> Home
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to='/dashboard/myParcels'>
+                            <NavLink to="/dashboard/myParcels">
                                 <BiPackage className="mr-2 text-xl" /> My Parcels
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to='/dashboard/paymentHistory'>
+                            <NavLink to="/dashboard/paymentHistory">
                                 <RiHistoryLine className="mr-2 text-xl" /> Payment History
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to='/dashboard/track'>
+                            <NavLink to="/dashboard/track">
                                 <MdOutlineTrackChanges className="mr-2 text-xl" /> Track a Parcel
                             </NavLink>
                         </li>
+                        {/* Rider Management */}
                         <li>
-                            <NavLink to='/dashboard/profile'>
+                            <NavLink to="/dashboard/activeRiders">
+                                <FaMotorcycle className="mr-2 text-xl" /> Active Riders
+                            </NavLink>
+                        </li>
+
+                        <li>
+                            <NavLink to="/dashboard/pendingRiders">
+                                <MdPendingActions className="mr-2 text-xl" /> Pending Riders
+                            </NavLink>
+                        </li>
+
+                        <li>
+                            <NavLink to="/dashboard/profile">
                                 <AiOutlineProfile className="mr-2 text-xl" /> Update Profile
                             </NavLink>
                         </li>
