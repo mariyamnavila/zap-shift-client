@@ -27,7 +27,9 @@ const PendingRiders = () => {
             confirmButtonText: "Yes, approve"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                await axiosSecure.patch(`/riders/approve/${id}`);
+                await axiosSecure.patch(`/riders/${id}/status`, {
+                    status: "active"
+                });
                 Swal.fire("Approved!", "Rider has been approved.", "success");
                 setSelectedRider(null);
                 refetch();
@@ -44,7 +46,9 @@ const PendingRiders = () => {
             confirmButtonText: "Reject"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                await axiosSecure.patch(`/riders/reject/${id}`);
+                await axiosSecure.patch(`/riders/${id}/status`, {
+                    status: "rejected"
+                });
                 Swal.fire("Rejected", "Application rejected.", "success");
                 setSelectedRider(null);
                 refetch();
