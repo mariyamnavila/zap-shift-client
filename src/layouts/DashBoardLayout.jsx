@@ -5,7 +5,12 @@ import { MdOutlineTrackChanges, MdPendingActions } from 'react-icons/md';
 import { NavLink, Outlet } from 'react-router-dom';
 import ZapShiftLogo from '../Pages/shared/ZapShiftLogo/ZapShiftLogo';
 import { FaMotorcycle } from "react-icons/fa";
+import useUserRole from '../hooks/useUserRole';
+import Loading from '../Pages/shared/Loading/Loading';
 const DashBoardLayout = () => {
+
+    const { role, roleLoading } = useUserRole()
+
     return (
         <div>
             <div className="drawer lg:drawer-open">
@@ -60,30 +65,34 @@ const DashBoardLayout = () => {
                                 <MdOutlineTrackChanges className="mr-2 text-xl" /> Track a Parcel
                             </NavLink>
                         </li>
-                        {/* Rider Management */}
-                        <li>
-                            <NavLink to="/dashboard/activeRiders">
-                                <FaMotorcycle className="mr-2 text-xl" /> Active Riders
-                            </NavLink>
-                        </li>
-
-                        <li>
-                            <NavLink to="/dashboard/pendingRiders">
-                                <MdPendingActions className="mr-2 text-xl" /> Pending Riders
-                            </NavLink>
-                        </li>
-
                         <li>
                             <NavLink to="/dashboard/profile">
                                 <AiOutlineProfile className="mr-2 text-xl" /> Update Profile
                             </NavLink>
                         </li>
-                        {/* admin making */}
-                        <li>
-                            <NavLink to="/dashboard/makeAdmin">
-                                <RiAdminLine className="mr-2 text-xl" /> Make Admin
-                            </NavLink>
-                        </li>
+
+                        {!roleLoading && role === 'admin' &&
+                            <>
+                                {/* Rider Management */}
+                                <li>
+                                    <NavLink to="/dashboard/activeRiders">
+                                        <FaMotorcycle className="mr-2 text-xl" /> Active Riders
+                                    </NavLink>
+                                </li>
+
+                                <li>
+                                    <NavLink to="/dashboard/pendingRiders">
+                                        <MdPendingActions className="mr-2 text-xl" /> Pending Riders
+                                    </NavLink>
+                                </li>
+                                {/* admin making */}
+                                <li>
+                                    <NavLink to="/dashboard/makeAdmin">
+                                        <RiAdminLine className="mr-2 text-xl" /> Make Admin
+                                    </NavLink>
+                                </li>
+                            </>
+                        }
                     </ul>
                 </div>
             </div>
