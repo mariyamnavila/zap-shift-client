@@ -1,6 +1,6 @@
 import { AiOutlineHome, AiOutlineProfile } from 'react-icons/ai';
 import { BiPackage } from 'react-icons/bi';
-import { RiHistoryLine } from 'react-icons/ri';
+import { RiAdminLine, RiHistoryLine } from 'react-icons/ri';
 import { MdOutlineTrackChanges, MdPendingActions } from 'react-icons/md';
 import { NavLink, Outlet } from 'react-router-dom';
 import ZapShiftLogo from '../Pages/shared/ZapShiftLogo/ZapShiftLogo';
@@ -76,6 +76,12 @@ const DashBoardLayout = () => {
                         <li>
                             <NavLink to="/dashboard/profile">
                                 <AiOutlineProfile className="mr-2 text-xl" /> Update Profile
+                            </NavLink>
+                        </li>
+                        {/* admin making */}
+                        <li>
+                            <NavLink to="/dashboard/makeAdmin">
+                                <RiAdminLine className="mr-2 text-xl" /> Make Admin
                             </NavLink>
                         </li>
                     </ul>

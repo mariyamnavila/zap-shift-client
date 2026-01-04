@@ -19,7 +19,7 @@ const PendingRiders = () => {
     if (isLoading) return <Loading />;
 
     // ✅ Approve Rider
-    const handleApprove = async (id) => {
+    const handleApprove = async (id,email) => {
         Swal.fire({
             title: "Approve this rider?",
             icon: "question",
@@ -28,7 +28,7 @@ const PendingRiders = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 await axiosSecure.patch(`/riders/${id}/status`, {
-                    status: "active"
+                    status: "active",email
                 });
                 Swal.fire("Approved!", "Rider has been approved.", "success");
                 setSelectedRider(null);
@@ -94,13 +94,13 @@ const PendingRiders = () => {
                                     </button>
                                     <button
                                         className="btn btn-xs btn-success"
-                                        onClick={() => handleApprove(rider._id)}
+                                        onClick={() => handleApprove(rider._id,rider.email)}
                                     >
                                         Approve
                                     </button>
                                     <button
                                         className="btn btn-xs btn-error"
-                                        onClick={() => handleReject(rider._id)}
+                                        onClick={() => handleReject(rider._id,rider.email)}
                                     >
                                         Reject
                                     </button>

@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import useAxios from "../../../hooks/useAxios";
+import Swal from "sweetalert2";
 
 
 const Register = () => {
@@ -24,6 +25,13 @@ const Register = () => {
         createUser(email, password)
             .then( async (result) => {
                 console.log(result.user);
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'User Created Successfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
                 navigate(from)
 
                 // update user profile in database
@@ -31,7 +39,7 @@ const Register = () => {
                 const userInfo = {
                     email: email,
                     role: 'user',
-                    createAt: new Date().toISOString(),
+                    createdAt: new Date().toISOString(),
                     lastLogIn: new Date().toISOString(),
                     name: name,
                 }

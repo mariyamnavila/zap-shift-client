@@ -14,7 +14,8 @@ const BeARider = () => {
         register,
         handleSubmit,
         setValue,
-        formState: { errors }
+        formState: { errors },
+        reset,
     } = useForm({
         defaultValues: {
             name: user?.displayName || "",
@@ -58,6 +59,7 @@ const BeARider = () => {
                         text: "Your rider application is pending approval.",
                         confirmButtonText: "OK",
                     });
+                    reset();
                 }
             });
 
