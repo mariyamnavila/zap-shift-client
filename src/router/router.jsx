@@ -19,6 +19,8 @@ import Loading from "../Pages/shared/Loading/Loading";
 import PendingRiders from "../Pages/Dashboard/PendingRiders/PendingRiders";
 import ActiveRiders from "../Pages/Dashboard/ActiveRiders/ActiveRiders";
 import MakeAdmin from "../Pages/Dashboard/MakeAdmin/MakeAdmin";
+import Unauthorized from "../Pages/Unauthorized/Unauthorized";
+import AdminRoute from "../routes/AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +35,10 @@ export const router = createBrowserRouter([
         path: 'coverage',
         Component: Coverage,
         loader: () => fetch('./warehouses.json'),
+      },
+      {
+        path: 'unauthorized',
+        Component: Unauthorized,
       },
       {
         path: 'sendParcel',
@@ -67,15 +73,15 @@ export const router = createBrowserRouter([
       },
       {
         path:'pendingRiders',
-        Component: PendingRiders,
+        element: <AdminRoute><PendingRiders /></AdminRoute>,
       },
       {
         path:'activeRiders',
-        Component: ActiveRiders,
+        element: <AdminRoute><ActiveRiders /></AdminRoute>,
       },
       {
         path:'makeAdmin',
-        Component: MakeAdmin,
+        element: <AdminRoute><MakeAdmin /></AdminRoute>,
       },
       {
         path: "track/:trackingNumber?",

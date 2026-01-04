@@ -6,7 +6,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 import ZapShiftLogo from '../Pages/shared/ZapShiftLogo/ZapShiftLogo';
 import { FaMotorcycle } from "react-icons/fa";
 import useUserRole from '../hooks/useUserRole';
-import Loading from '../Pages/shared/Loading/Loading';
+
 const DashBoardLayout = () => {
 
     const { role, roleLoading } = useUserRole()

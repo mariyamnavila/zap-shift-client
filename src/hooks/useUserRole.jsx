@@ -10,20 +10,17 @@ const useUserRole = () => {
         data: role = "user", // default to 'user' if not loaded
         isLoading: roleLoading,
         refetch
-    } = useQuery(
-        ["userRole", user?.email],
-        async () => {
-            if (!user?.email) return "user";
-
-            const res = await axiosSecure.get(`/users/${user.email}/role`);
+    } = useQuery({
+        queryKey: ["userRole", user?.email],
+        enabled: !!user?.email && !authLoading,
+        queryFn: async () => {
+            const res = await axiosSecure.get(
+                `/users/${user.email}/role`
+            );
             return res.data.role;
         },
-        {
-            enabled: !!user?.email && !authLoading, // only run when user is ready
-            staleTime: 1000 * 60 * 5, // 5 minutes caching
-            cacheTime: 1000 * 60 * 10 // 10 minutes
-        }
-    );
+        staleTime: 1000 * 60 * 5, // 5 minutes
+    });
 
     return { role, roleLoading: authLoading || roleLoading, refetch };
 };
