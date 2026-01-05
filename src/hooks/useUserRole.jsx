@@ -19,7 +19,6 @@ const useUserRole = () => {
             );
             return res.data.role;
         },
-        staleTime: 1000 * 60 * 5, // 5 minutes
     });
 
     return { role, roleLoading: authLoading || roleLoading, refetch };

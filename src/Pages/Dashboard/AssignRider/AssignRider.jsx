@@ -1,11 +1,16 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FaUserPlus } from "react-icons/fa";
 import Loading from '../../shared/Loading/Loading';
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 const AssignRider = () => {
     const axiosSecure = useAxiosSecure();
+    const [selectedParcel, setSelectedParcel] = useState(null);
+    const queryClient = useQueryClient();
 
+    // Load parcels eligible for rider assignment
     const { data: parcels = [], isLoading } = useQuery({
         queryKey: ["assignableParcels"],
         queryFn: async () => {
@@ -16,9 +21,52 @@ const AssignRider = () => {
         }
     });
 
-    if (isLoading) {
-        return <Loading />;
-    }
+    // Load riders based on service center (district)
+    const { data: riders = [], isLoading: ridersLoading } = useQuery({
+        queryKey: ["riders", selectedParcel?.senderDistrict],
+        enabled: !!selectedParcel,
+        queryFn: async () => {
+            const res = await axiosSecure.get("/riders", {
+                params: { district: selectedParcel.senderDistrict }
+            });
+            return res.data;
+        }
+    });
+
+    const openAssignModal = (parcel) => {
+        setSelectedParcel(parcel);
+        document.getElementById("assignRiderModal").showModal();
+    };
+
+    const closeModal = () => {
+        setSelectedParcel(null);
+    };
+
+    // 🔹 Assign rider mutation
+    const assignRiderMutation = useMutation({
+        mutationFn: async ({ parcelId, rider }) => {
+            const res = await axiosSecure.patch(
+                `/parcels/${parcelId}/assign-rider`,
+                {
+                    riderId: rider._id,
+                    riderName: rider.name
+                }
+            );
+            return res.data;
+        },
+        onSuccess: () => {
+            toast.success("Rider assigned. Parcel is now in transit 🚚");
+            document.getElementById("assignRiderModal").close();
+            setSelectedParcel(null);
+            queryClient.invalidateQueries(["assignableParcels"]);
+        },
+        onError: (error) => {
+            toast.error(error.response?.data?.message || "Failed to assign rider");
+        }
+    });
+
+
+    if (isLoading) return <Loading />;
 
     return (
         <div className="p-4 md:p-6">
@@ -96,10 +144,7 @@ const AssignRider = () => {
                                 <td className="text-center">
                                     <button
                                         className="btn btn-sm btn-primary gap-2"
-                                        onClick={() => {
-                                            // will implement later
-                                            console.log("Assign rider to:", parcel.trackingNumber);
-                                        }}
+                                        onClick={() => openAssignModal(parcel)}
                                     >
                                         <FaUserPlus />
                                         Assign
@@ -176,10 +221,7 @@ const AssignRider = () => {
                             {/* Action Button */}
                             <button
                                 className="btn btn-primary btn-block gap-2"
-                                onClick={() => {
-                                    // will implement later
-                                    console.log("Assign rider to:", parcel.trackingNumber);
-                                }}
+                                onClick={() => openAssignModal(parcel)}
                             >
                                 <FaUserPlus />
                                 Assign Rider
@@ -196,8 +238,76 @@ const AssignRider = () => {
                     </div>
                 )}
             </div>
+            {/* ===== DAISYUI MODAL ===== */}
+            <dialog id="assignRiderModal" className="modal">
+                <div className="modal-box max-w-3xl">
+                    <h3 className="font-bold text-lg mb-4 text-primary">
+                        Assign Rider
+                    </h3>
+
+                    {ridersLoading ? (
+                        <Loading />
+                    ) : riders.length === 0 ? (
+                        <p className="text-center opacity-70">
+                            No available riders for this service center
+                        </p>
+                    ) : (
+                        <div className="overflow-x-auto">
+                            <table className="table table-zebra">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Rider</th>
+                                        <th>Bike</th>
+                                        <th>District</th>
+                                        <th className="text-center">Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {riders.map((rider, index) => (
+                                        <tr key={rider._id}>
+                                            <td>{index + 1}</td>
+                                            <td>
+                                                <p className="font-semibold">{rider.name}</p>
+                                                <p className="text-xs opacity-70">{rider.email}</p>
+                                            </td>
+                                            <td>
+                                                <p>{rider.bikeBrand}</p>
+                                                <p className="text-xs opacity-70">
+                                                    {rider.bikeRegNumber}
+                                                </p>
+                                            </td>
+                                            <td>{rider.district}</td>
+                                            <td className="text-center">
+                                                <button
+                                                    className="btn btn-sm btn-primary"
+                                                    disabled={assignRiderMutation.isLoading}
+                                                    onClick={() =>
+                                                        assignRiderMutation.mutate({
+                                                            parcelId: selectedParcel._id,
+                                                            rider
+                                                        })
+                                                    }
+                                                >
+                                                    Assign
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+
+                    <div className="modal-action">
+                        <form method="dialog">
+                            <button className="btn" onClick={()=>closeModal()}>Close</button>
+                        </form>
+                    </div>
+                </div>
+            </dialog>
         </div>
     );
 };
-
 export default AssignRider;
