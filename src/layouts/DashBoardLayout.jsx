@@ -6,6 +6,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 import ZapShiftLogo from '../Pages/shared/ZapShiftLogo/ZapShiftLogo';
 import { FaMotorcycle } from "react-icons/fa";
 import useUserRole from '../hooks/useUserRole';
+import { TbRoute } from "react-icons/tb";
 
 const DashBoardLayout = () => {
 
@@ -74,6 +75,12 @@ const DashBoardLayout = () => {
                         {!roleLoading && role === 'admin' &&
                             <>
                                 {/* Rider Management */}
+                                <li>
+                                    <NavLink to="/dashboard/assignRider">
+                                        <TbRoute className="mr-2 text-xl" /> Assign Rider
+                                    </NavLink>
+                                </li>
+
                                 <li>
                                     <NavLink to="/dashboard/activeRiders">
                                         <FaMotorcycle className="mr-2 text-xl" /> Active Riders

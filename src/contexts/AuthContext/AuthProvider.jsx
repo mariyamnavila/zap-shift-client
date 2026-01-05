@@ -2,7 +2,6 @@ import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged,
 import { AuthContext } from "./AuthContext";
 import { auth } from "../../firebase/firebase.init";
 import { useEffect, useState } from "react";
-import { set } from "react-hook-form";
 
 const googleProvider = new GoogleAuthProvider();
 
