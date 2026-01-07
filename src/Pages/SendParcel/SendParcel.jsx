@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
@@ -20,6 +20,7 @@ const SendParcel = () => {
         },
     });
     const coverageData = useLoaderData();
+    const navigate = useNavigate();
 
     const axiosSecure = useAxiosSecure()
 
@@ -81,6 +82,9 @@ const SendParcel = () => {
                 console.log(res.data);
                 if (res.data.insertedId) {
                     toast.success("Parcel created successfully!", { duration: 4000 });
+                    // Optionally, reset the form or redirect
+
+                    navigate('/dashboard/myParcels');
                 }
             })
     };

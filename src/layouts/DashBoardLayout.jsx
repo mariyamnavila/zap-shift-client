@@ -7,6 +7,7 @@ import ZapShiftLogo from '../Pages/shared/ZapShiftLogo/ZapShiftLogo';
 import { FaMotorcycle } from "react-icons/fa";
 import useUserRole from '../hooks/useUserRole';
 import { TbRoute } from "react-icons/tb";
+import { BsBoxSeam } from "react-icons/bs";
 
 const DashBoardLayout = () => {
 
@@ -72,6 +73,20 @@ const DashBoardLayout = () => {
                             </NavLink>
                         </li>
 
+                        {/* Riders links */}
+
+                        {
+                            !roleLoading && role === 'rider' &&
+                            <>
+                                <li>
+                                    <NavLink to="/dashboard/pendingDeliveries">
+                                        <BsBoxSeam className="mr-2 text-xl" /> Pending Deliveries
+                                    </NavLink>
+                                </li>
+                            </>
+                        }
+
+                        {/* Admin links */}
                         {!roleLoading && role === 'admin' &&
                             <>
                                 {/* Rider Management */}

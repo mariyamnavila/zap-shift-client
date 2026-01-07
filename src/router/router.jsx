@@ -22,6 +22,8 @@ import MakeAdmin from "../Pages/Dashboard/MakeAdmin/MakeAdmin";
 import Unauthorized from "../Pages/Unauthorized/Unauthorized";
 import AdminRoute from "../routes/AdminRoute";
 import AssignRider from "../Pages/Dashboard/AssignRider/AssignRider";
+import PendingDeliveries from "../Pages/Dashboard/PendingDeliveries/PendingDeliveries";
+import RiderRoute from "../routes/RiderRoute";
 
 export const router = createBrowserRouter([
   {
@@ -60,6 +62,7 @@ export const router = createBrowserRouter([
       <DashBoardLayout></DashBoardLayout>
     </PrivateRoute>,
     children:[
+      // Common routes
       {
         path:'myParcels',
         Component: MyParcels,
@@ -72,6 +75,11 @@ export const router = createBrowserRouter([
         path:'paymentHistory',
         Component: PaymentHistory,
       },
+      {
+        path: "track/:trackingNumber?",
+        Component: TrackParcel,
+      },
+      // Admin only routes
       {
         path:'pendingRiders',
         element: <AdminRoute><PendingRiders /></AdminRoute>,
@@ -88,9 +96,10 @@ export const router = createBrowserRouter([
         path:'makeAdmin',
         element: <AdminRoute><MakeAdmin /></AdminRoute>,
       },
+      // Rider only routes
       {
-        path: "track/:trackingNumber?",
-        Component: TrackParcel,
+        path:'pendingDeliveries',
+        element: <RiderRoute><PendingDeliveries /></RiderRoute>,
       },
     ]
   },

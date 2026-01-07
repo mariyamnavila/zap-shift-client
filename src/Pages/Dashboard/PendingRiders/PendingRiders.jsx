@@ -135,13 +135,13 @@ const PendingRiders = () => {
                         <div className="modal-action">
                             <button
                                 className="btn btn-success"
-                                onClick={() => handleApprove(selectedRider._id)}
+                                onClick={() => handleApprove(selectedRider._id,selectedRider.email)}
                             >
                                 Approve
                             </button>
                             <button
                                 className="btn btn-error"
-                                onClick={() => handleReject(selectedRider._id)}
+                                onClick={() => handleReject(selectedRider._id,selectedRider.email)}
                             >
                                 Reject
                             </button>

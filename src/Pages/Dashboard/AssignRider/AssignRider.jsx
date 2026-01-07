@@ -49,13 +49,14 @@ const AssignRider = () => {
                 `/parcels/${parcelId}/assign-rider`,
                 {
                     riderId: rider._id,
+                    riderEmail: rider.email,
                     riderName: rider.name
                 }
             );
             return res.data;
         },
         onSuccess: () => {
-            toast.success("Rider assigned. Parcel is now in transit 🚚");
+            toast.success("Rider assigned for the Parcel 🚚");
             document.getElementById("assignRiderModal").close();
             setSelectedParcel(null);
             queryClient.invalidateQueries(["assignableParcels"]);
