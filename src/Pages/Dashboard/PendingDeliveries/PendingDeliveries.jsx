@@ -2,7 +2,6 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Loading from "../../shared/Loading/Loading";
-import toast from "react-hot-toast";
 import { FaCheckCircle, FaTruckLoading } from "react-icons/fa";
 import Swal from "sweetalert2";
 

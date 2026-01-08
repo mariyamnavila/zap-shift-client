@@ -1,7 +1,7 @@
 import { AiOutlineHome, AiOutlineProfile } from 'react-icons/ai';
 import { BiPackage } from 'react-icons/bi';
 import { RiAdminLine, RiHistoryLine } from 'react-icons/ri';
-import { MdOutlineTrackChanges, MdPendingActions } from 'react-icons/md';
+import { MdOutlineCheckCircle, MdOutlineTrackChanges, MdPendingActions } from 'react-icons/md';
 import { NavLink, Outlet } from 'react-router-dom';
 import ZapShiftLogo from '../Pages/shared/ZapShiftLogo/ZapShiftLogo';
 import { FaMotorcycle } from "react-icons/fa";
@@ -81,6 +81,12 @@ const DashBoardLayout = () => {
                                 <li>
                                     <NavLink to="/dashboard/pendingDeliveries">
                                         <BsBoxSeam className="mr-2 text-xl" /> Pending Deliveries
+                                    </NavLink>
+                                </li>
+                                
+                                <li>
+                                    <NavLink to="/dashboard/completedDeliveries">
+                                        <MdOutlineCheckCircle className="mr-2 text-xl" /> Completed Deliveries
                                     </NavLink>
                                 </li>
                             </>
