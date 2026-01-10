@@ -4,11 +4,14 @@ import Loading from '../../shared/Loading/Loading';
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import useUpdateTracking from "../../../hooks/useUpdateTracking";
 
 const AssignRider = () => {
     const axiosSecure = useAxiosSecure();
     const [selectedParcel, setSelectedParcel] = useState(null);
+    const [selectedRider, setSelectedRider] = useState(null);
     const queryClient = useQueryClient();
+    const { addTrackingUpdate } = useUpdateTracking();
 
     // Load parcels eligible for rider assignment
     const { data: parcels = [], isLoading } = useQuery({
@@ -53,13 +56,24 @@ const AssignRider = () => {
                     riderName: rider.name
                 }
             );
+            setSelectedRider(rider);
             return res.data;
         },
-        onSuccess: () => {
+        onSuccess: async () => {
             toast.success("Rider assigned for the Parcel 🚚");
+            // Close modal and reset selected parcel
             document.getElementById("assignRiderModal").close();
             setSelectedParcel(null);
             queryClient.invalidateQueries(["assignableParcels"]);
+            // Add tracking update
+            await addTrackingUpdate({
+                parcelId: selectedParcel._id,
+                trackingNumber: selectedParcel.trackingNumber,
+                status: "Rider Assigned",
+                location: selectedParcel.senderDistrict,
+                message: `Rider ${selectedRider.name} has been assigned to the parcel.`,
+                updatedBy: "admin"
+            });
         },
         onError: (error) => {
             toast.error(error.response?.data?.message || "Failed to assign rider");
@@ -303,7 +317,7 @@ const AssignRider = () => {
 
                     <div className="modal-action">
                         <form method="dialog">
-                            <button className="btn" onClick={()=>closeModal()}>Close</button>
+                            <button className="btn" onClick={() => closeModal()}>Close</button>
                         </form>
                     </div>
                 </div>

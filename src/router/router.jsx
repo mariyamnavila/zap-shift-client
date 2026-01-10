@@ -78,7 +78,7 @@ export const router = createBrowserRouter([
         Component: PaymentHistory,
       },
       {
-        path: "track/:trackingNumber?",
+        path: "track/:trackingId?",
         Component: TrackParcel,
       },
       // Admin only routes

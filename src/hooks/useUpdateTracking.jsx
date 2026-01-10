@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useAxiosSecure from "../hooks/useAxiosSecure";
+import useAxiosSecure from "./useAxiosSecure";
 
 const useUpdateTracking = () => {
     const axiosSecure = useAxiosSecure();

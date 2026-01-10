@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Loading from "../../shared/Loading/Loading";
 import Swal from "sweetalert2";
+import useUpdateTracking from "../../../hooks/useUpdateTracking";
 
 
 const PaymentForm = () => {
@@ -17,6 +18,8 @@ const PaymentForm = () => {
 
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
+
+    const { addTrackingUpdate } = useUpdateTracking();
 
     const { isPending, data: parcelInfo = {} } = useQuery({
         queryKey: ['parcels', parcelId],
@@ -99,16 +102,6 @@ const PaymentForm = () => {
                     }, 5000);
 
                     // step-4 mark parcel paid also create payment history
-                    /*
-                  Expected body:
-                  {
-                    parcelId,
-                    senderEmail,
-                    amount,
-                    transactionId,
-                    paymentMethod: result.paymentIntent.payment_method
-                  }
-                */
                     const paymentInfo = {
                         parcelId,
                         senderEmail: parcelInfo.senderEmail,
@@ -129,6 +122,15 @@ const PaymentForm = () => {
                             confirmButtonText: "Go to My Parcels"
                         }).then(() => {
                             navigate("/dashboard/myParcels");
+                        });
+
+                        await addTrackingUpdate({
+                            parcelId,
+                            trackingNumber: parcelInfo.trackingNumber,
+                            status: "Payment Completed",
+                            // location: "N/A",
+                            message: "Payment has been successfully completed.",
+                            updatedBy: parcelInfo.senderEmail || 'system'
                         });
                     }
                 }

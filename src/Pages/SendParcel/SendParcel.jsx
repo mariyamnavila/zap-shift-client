@@ -3,6 +3,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useUpdateTracking from "../../hooks/useUpdateTracking";
 
 
 
@@ -23,6 +24,8 @@ const SendParcel = () => {
     const navigate = useNavigate();
 
     const axiosSecure = useAxiosSecure()
+
+    const { addTrackingUpdate, success } = useUpdateTracking();
 
     // Create region -> districts mapping
     const regionDistrictMap = coverageData.reduce((acc, item) => {
@@ -78,11 +81,22 @@ const SendParcel = () => {
     // Placeholder saveParcel
     const saveParcel = (parcelData) => {
         axiosSecure.post('/parcels', parcelData)
-            .then((res) => {
+            .then( async (res) => {
                 console.log(res.data);
                 if (res.data.insertedId) {
                     toast.success("Parcel created successfully!", { duration: 4000 });
-                    // Optionally, reset the form or redirect
+                    const { trackingNumber } = parcelData;
+
+                    await addTrackingUpdate({
+                        parcelId: res.data.insertedId,
+                        trackingNumber,
+                        status: 'Parcel Created',
+                        location: parcelData.senderDistrict,
+                        message: 'The parcel has been created and is awaiting pickup.',
+                        updatedBy: user?.email || 'system'
+                    });
+
+                    console.log(success);
 
                     navigate('/dashboard/myParcels');
                 }

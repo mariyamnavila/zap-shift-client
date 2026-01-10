@@ -4,12 +4,14 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Loading from "../../shared/Loading/Loading";
 import { FaCheckCircle, FaTruckLoading } from "react-icons/fa";
 import Swal from "sweetalert2";
+import useUpdateTracking from "../../../hooks/useUpdateTracking";
 
 
 const PendingDeliveries = () => {
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
     const queryClient = useQueryClient();
+    const { addTrackingUpdate } = useUpdateTracking();
 
     // Fetch pending parcels for rider
     const { data: parcels = [], isLoading } = useQuery({
@@ -64,6 +66,26 @@ const PendingDeliveries = () => {
                 parcelId: parcel._id,
                 status: nextStatus
             });
+
+            if (nextStatus === 'in-transit') {
+                await addTrackingUpdate({
+                    parcelId: parcel._id,
+                    trackingNumber: parcel.trackingNumber,
+                    status: "Picked Up",
+                    location: parcel.senderDistrict,
+                    message: "Parcel has been picked up by the rider.",
+                    updatedBy: user.email
+                });
+            } else if (nextStatus === 'delivered') {
+                await addTrackingUpdate({
+                    parcelId: parcel._id,
+                    trackingNumber: parcel.trackingNumber,
+                    status: "Delivered",
+                    location: parcel.receiverDistrict,
+                    message: "Parcel has been delivered to the receiver.",
+                    updatedBy: user.email
+                });
+            }
 
             await Swal.fire({
                 icon: "success",
