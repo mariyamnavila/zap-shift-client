@@ -8,6 +8,7 @@ import { FaMotorcycle } from "react-icons/fa";
 import useUserRole from '../hooks/useUserRole';
 import { TbRoute } from "react-icons/tb";
 import { BsBoxSeam } from "react-icons/bs";
+import { HiOutlineCurrencyBangladeshi } from "react-icons/hi2";
 
 const DashBoardLayout = () => {
 
@@ -87,6 +88,13 @@ const DashBoardLayout = () => {
                                 <li>
                                     <NavLink to="/dashboard/completedDeliveries">
                                         <MdOutlineCheckCircle className="mr-2 text-xl" /> Completed Deliveries
+                                    </NavLink>
+                                </li>
+
+                                <li>
+                                    <NavLink to="/dashboard/myEarnings">
+                                        <HiOutlineCurrencyBangladeshi className="mr-2 text-xl" />
+                                        My Earnings
                                     </NavLink>
                                 </li>
                             </>
