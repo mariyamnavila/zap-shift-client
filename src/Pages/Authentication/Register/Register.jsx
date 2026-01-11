@@ -20,11 +20,11 @@ const Register = () => {
     const from = location.state?.from || '/'
 
     const onSubmit = (data) => {
-        console.log(data);
+        // console.log(data);
         const { email, password, name } = data
         createUser(email, password)
             .then( async (result) => {
-                console.log(result.user);
+                // console.log(result.user);
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
@@ -45,7 +45,7 @@ const Register = () => {
                 }
 
                 const userRes = await axiosInstance.post('/users', userInfo);
-                console.log(userRes.data);
+                // console.log(userRes.data);
 
                 // update user profile in firebase
                 const profile = {
@@ -54,14 +54,14 @@ const Register = () => {
                 }
                 updateUserProfile(profile)
                     .then(() => {
-                        console.log('doneeee');
+                        // console.log('doneeee');
                     })
                     .catch((error) => {
-                        console.log(error);
+                        // console.log(error);
                     })
             })
             .catch((error) => {
-                console.log(error);
+                // console.log(error);
             })
     }
 
@@ -69,7 +69,7 @@ const Register = () => {
         const formData = new FormData();
         const imageFile = event.target.files[0];
         formData.append('image', imageFile);
-        console.log(event.target.files[0]);
+        // console.log(event.target.files[0]);
         // You can implement the image upload logic here
 
         const res = await axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_imagebb_key}`, formData)

@@ -17,22 +17,22 @@ const MyParcels = () => {
         }
     })
 
-    console.log(parcels);
+    // console.log(parcels);
 
     // 👉 View parcel details
     const handleView = (parcel) => {
-        console.log("View parcel:", parcel);
+        // console.log("View parcel:", parcel);
         // later: open modal or navigate to details page
     };
 
     // 👉 Pay for parcel
     const handlePay = (id) => {
-        console.log("Pay for parcel:", id);
+        // console.log("Pay for parcel:", id);
         // later: redirect to payment gateway
         navigate(`/dashboard/payment/${id}`)
     };
     const handleTrack = (id) => {
-        console.log("Track for parcel:", id);
+        // console.log("Track for parcel:", id);
         // later: redirect to payment gateway
         navigate(`/dashboard/track/${id}`)
     };
@@ -52,7 +52,7 @@ const MyParcels = () => {
 
                 axiosSecure.delete(`/parcels/${id}`)
                     .then(res => {
-                        console.log(res.data);
+                        // console.log(res.data);
                         if (res.data.deletedCount > 0) {
                             Swal.fire({
                                 icon: "success",
@@ -155,7 +155,7 @@ const MyParcels = () => {
 
                                 <button
                                     className="btn btn-xs btn-primary"
-                                    onClick={() => handleTrack(parcel._id)}
+                                    onClick={() => handleTrack(parcel.trackingNumber)}
                                 >
                                     Track
                                 </button>

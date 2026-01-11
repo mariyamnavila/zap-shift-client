@@ -59,7 +59,7 @@ const PaymentForm = () => {
         })
 
         if (error) {
-            console.log(error);
+            // console.log(error);
             setError(error.message);
             setTimeout(() => {
                 setError('')
@@ -111,9 +111,9 @@ const PaymentForm = () => {
                     };
 
                     const paymentRes = await axiosSecure.post('/payments', paymentInfo);
-                    console.log(paymentRes.data);
+                    // console.log(paymentRes.data);
                     if (paymentRes.data.insertedId) {
-                        console.log('payment info saved to db');
+                        // console.log('payment info saved to db');
 
                         Swal.fire({
                             icon: "success",

@@ -13,11 +13,11 @@ const Login = () => {
     const from = location.state?.from || '/'
 
     const onSubmit = (data) => {
-        console.log(data);
+        // console.log(data);
         const { email, password } = data;
         signIn(email, password)
             .then((result) => {
-                console.log(result.user);
+                // console.log(result.user);
                 toast.success('You have successfully logged in ', {
                     zIndex: 9999,
                     position: "top-center",
@@ -33,7 +33,7 @@ const Login = () => {
                 navigate(from)
             })
             .catch((error) => {
-                console.log(error);
+                // console.log(error);
                 toast.error(error, {
                     zIndex: 9999,
                     position: "top-center",

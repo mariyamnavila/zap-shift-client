@@ -47,11 +47,11 @@ const BeARider = () => {
             status: "pending"
         };
 
-        console.log("Rider Application:", riderApplication);
+        // console.log("Rider Application:", riderApplication);
 
         axiosSecure.post('/riders', riderApplication)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 if (res.data.insertedId) {
                     Swal.fire({
                         icon: "success",

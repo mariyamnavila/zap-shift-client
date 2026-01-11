@@ -24,7 +24,7 @@ const TrackParcel = () => {
             setError("");
             const res = await axiosSecure.get(`/tracking/${trackId}`);
             setTrackingUpdates(res.data);
-            console.log(res.data);
+            // console.log(res.data);
         } catch (err) {
             setError(err.response?.data?.message || "Tracking not found");
             setTrackingUpdates([]);

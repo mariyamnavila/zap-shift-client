@@ -13,7 +13,7 @@ const SocialLogin = () => {
     const handleGoogleSignIn = () => {
         signInWithGoogle()
             .then(async (result) => {
-                console.log(result.user);
+                // console.log(result.user);
                 const { email, displayName } = result.user
                 const userInfo = {
                     email: email,
@@ -24,11 +24,11 @@ const SocialLogin = () => {
                 }
 
                 const res = await axiosInstance.post('/users', userInfo);
-                console.log(res.data);
+                // console.log(res.data);
                 navigate(from)
             })
             .catch((error) => {
-                console.log(error);
+                // console.log(error);
             })
     }
 

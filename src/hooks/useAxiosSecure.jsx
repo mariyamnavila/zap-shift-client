@@ -3,7 +3,7 @@ import useAuth from "./useAuth";
 import { useNavigate } from "react-router-dom";
 
 const axiosSecure =  axios.create({
-    baseURL: `http://localhost:5000`
+    baseURL: `https://zap-shift-server-umber-ten.vercel.app`
 })
 
 const useAxiosSecure = () => {
@@ -25,10 +25,10 @@ const useAxiosSecure = () => {
         const status = error.status || error.response.status;
         if (error.response && status === 403) {
             // Handle unauthorized access, e.g., redirect to login
-            console.log("Unauthorized! Redirecting to login...");
+            // console.log("Unauthorized! Redirecting to login...");
             navigate('/unauthorized');
         } else if (error.response && status === 401) {
-            console.log("Authentication failed! Redirecting to login...");
+            // console.log("Authentication failed! Redirecting to login...");
             logOut()
             .then(() => {
                 // Successfully logged out

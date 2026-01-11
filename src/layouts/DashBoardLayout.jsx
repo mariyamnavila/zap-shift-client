@@ -49,7 +49,7 @@ const DashBoardLayout = () => {
                     <ul className="menu bg-base-200 min-h-full w-80 dash">
                         <li><ZapShiftLogo className="mb-3.5" /></li>
                         <li>
-                            <NavLink to="/">
+                            <NavLink to="/dashboard/home">
                                 <AiOutlineHome className="mr-2 text-xl" /> Home
                             </NavLink>
                         </li>

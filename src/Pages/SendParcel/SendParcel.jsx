@@ -25,7 +25,7 @@ const SendParcel = () => {
 
     const axiosSecure = useAxiosSecure()
 
-    const { addTrackingUpdate, success } = useUpdateTracking();
+    const { addTrackingUpdate } = useUpdateTracking();
 
     // Create region -> districts mapping
     const regionDistrictMap = coverageData.reduce((acc, item) => {
@@ -82,7 +82,7 @@ const SendParcel = () => {
     const saveParcel = (parcelData) => {
         axiosSecure.post('/parcels', parcelData)
             .then( async (res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 if (res.data.insertedId) {
                     toast.success("Parcel created successfully!", { duration: 4000 });
                     const { trackingNumber } = parcelData;
@@ -96,7 +96,6 @@ const SendParcel = () => {
                         updatedBy: user?.email || 'system'
                     });
 
-                    console.log(success);
 
                     navigate('/dashboard/myParcels');
                 }
